@@ -10,18 +10,24 @@ import javax.swing.JOptionPane;
  */
 public class InputOutputGui {
     private NameService nameService;
+    public static final String ERR = "Error";
+    public static final String NO_SPACE_ERR = "A full name must contain at space"
+            + " between the first and last name.";
 
     public InputOutputGui() {
         nameService = new NameService();
     }
 
     public void startConversation() {
-        
-        String fullName = JOptionPane.showInputDialog("Enter full name:");
-        String lastName = nameService.extractLastName(fullName);
-        String msg = "Your last name is: " + lastName;
-        JOptionPane.showMessageDialog(null, msg);
-        
+        try {
+            String fullName = JOptionPane.showInputDialog("Enter full name:");
+            String lastName = nameService.extractLastName(fullName);
+            String msg = "Your last name is: " + lastName;
+            JOptionPane.showMessageDialog(null, msg);
+        }
+        catch(NoSpaceException nse) {
+            JOptionPane.showMessageDialog(null, nse.getMessage(), ERR, JOptionPane.ERROR_MESSAGE);
+        }
     }
      
 }
