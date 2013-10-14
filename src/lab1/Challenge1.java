@@ -20,16 +20,24 @@ public class Challenge1 {
 
     public static void main(String[] args) {
         Challenge1 app = new Challenge1();
-        
+        try {
         String fullName = JOptionPane.showInputDialog("Enter full name:");
         String lastName = app.extractLastName(fullName);
         String msg = "Your last name is: " + lastName;
         JOptionPane.showMessageDialog(null, msg);
+        }
+        catch(ArrayIndexOutOfBoundsException aiobe) {
+            JOptionPane.showMessageDialog(null, aiobe.getMessage() + 
+                    " is out of bounds");
+            Challenge1.main(args);
+        }
+        
     }
     
     public String extractLastName(String fullName) {
+
         String[] nameParts = fullName.split(" ");
-        return nameParts[LAST_NAME_IDX];
+        return nameParts[nameParts.length - LAST_NAME_IDX];
     }
 
 }
